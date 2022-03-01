@@ -2,47 +2,36 @@
   padding: 24px;
   margin: 0 auto;
 }
-.Article_Header {
-  margin: 0 0 24px 0;
-}
-.Article_Title {
-  font-size: 2.4rem;
-  line-height: 1.5;
-  font-weight: bold;
+.Article_Eyecatch {
   margin: 0 0 16px 0;
-  padding: 0;
 }
-.Article_Data {
-  display: flex;
-  align-items: center;
+.Article_Eyecatch img {
+  width: 100%;
+  height: auto;
 }
-.Article_Avatar {
-  width: 32px;
-  height: 32px;
-  border-radius: 16px;
-  overflow: hidden;
-  margin: 0 12px 0 0;
-  flex-shrink: 0;
+.Article_EyecatchEmpty {
   background: rgba(0, 0, 0, 0.05);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 100%;
+  height: 0;
+  padding: 64% 0 0 0;
+  position: relative;
 }
-.Article_Avatar img {
-  width: 32px;
-  height: 32px;
-  object-fit: cover;
-  font-family: "object-fit: cover"; /* IE11 */
+.Article_EyecatchEmpty svg {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin: -30px 0 0 -30px;
 }
-.Article_AuthorName {
-  font-weight: bold;
-  margin: 0 8px 0 0;
-}
-.Article_Date {
+.Article_Category {
+  margin: 0;
+  padding: 0;
   color: #888;
 }
-.Article_Body {
-  padding: 0 0 28px 0;
+.Article_Title {
+  margin: 0 0 12px 0;
+  padding: 0;
+  font-size: 1.8rem;
+  line-height: 1.5;
 }
 .Article_Body h1,
 .Article_Body h2,
@@ -133,113 +122,15 @@
   margin: 0;
   color: #fff;
 }
-.Fav {
-  display: flex;
-  align-items: center;
-}
-.Fav_Button {
-  border: none;
-  width: 40px;
-  height: 40px;
-  background: #fff;
-  border-radius: 20px;
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.06), 0 3px 10px -8px rgba(0, 0, 0, 1);
-  position: relative;
-  cursor: pointer;
-}
-.Fav_Button:focus {
-  outline: none;
-}
-.Fav_Button:focus::after {
-  content: "";
-  border: 2px solid #005fcc;
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 36px;
-  height: 36px;
-  border-radius: 20px;
-  z-index: 0;
-}
-.Fav._on .Fav_Button:focus::after {
-  border: 2px solid #e0245e;
-}
-.Fav_Button:hover > svg {
-  fill: #888;
-}
-.Fav_Button:active {
-  transform: scale(0.96);
-}
-.Fav_Button > svg {
-  position: absolute;
-  left: 12px;
-  top: 12px;
-  height: 18px;
-  width: 16px;
-  display: block;
-  fill: #ccc;
-  transition: fill 0.2s;
-}
-.Fav > em {
-  font-style: normal;
-  font-weight: bold;
-  color: #888;
-  margin: 0 0 0 12px;
-}
-.Fav._on .Fav_Button > svg {
-  fill: #e0245e;
-  transition: none;
-}
-.Fav._on > em {
-  color: #e0245e;
-}
-.Author {
-  border: 1px solid #e5e5e5;
-  border-radius: 4px;
-  padding: 24px;
-  display: flex;
-  margin: 0 0 40px 0;
-}
-.Author_Avatar {
-  width: 48px;
-  height: 48px;
-  border-radius: 24px;
-  overflow: hidden;
-  margin: 0 16px 0 0;
-  flex-shrink: 0;
-  background: rgba(0, 0, 0, 0.05);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.Author_Avatar img {
-  width: 48px;
-  height: 48px;
-  object-fit: cover;
-  font-family: "object-fit: cover"; /* IE11 */
-}
-.Author_Name {
-  margin: 0 0 4px 0;
-  padding: 0;
-  font-weight: bold;
-  line-height: 1.5;
-}
-.Author_Description {
-  margin: 0;
-  padding: 0;
-  line-height: 1.5;
-  font-size: 1.2rem;
-}
-.Author_Description p {
-  margin: 0;
-  padding: 0;
-}
 @media (min-width: 600px) {
+  .Container {
+    flex: 1 auto;
+    display: flex;
+  }
   .Article {
     max-width: 700px;
     padding: 60px;
-  }
-  .Article_Header {
-    margin: 0 0 48px 0;
+    margin: auto;
+    width: 100%;
   }
 }

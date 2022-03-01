@@ -1,6 +1,6 @@
 import { Content, createClient } from "newt-client-js";
-import { Article } from "../types/article";
-import { Category } from "../types/category";
+import { Member } from "../types/member";
+import { Position } from "../types/position";
 
 const client = createClient({
   spaceUid: process.env.NEXT_PUBLIC_NEWT_SPACE_UID,
@@ -15,10 +15,10 @@ export const fetchApp = async () => {
   return app;
 };
 
-export const fetchCategories = async () => {
-  const { items } = await client.getContents<Content & Category>({
+export const fetchPositions = async () => {
+  const { items } = await client.getContents<Content & Position>({
     appUid: process.env.NEXT_PUBLIC_NEWT_APP_UID,
-    modelUid: process.env.NEXT_PUBLIC_NEWT_CATEGORY_MODEL_UID,
+    modelUid: process.env.NEXT_PUBLIC_NEWT_POSITION_MODEL_UID,
     query: {
       depth: 1,
     },
@@ -26,45 +26,42 @@ export const fetchCategories = async () => {
   return items;
 };
 
-export const fetchArticles = async (options?: {
+export const fetchMembers = async (options?: {
   query?: Record<string, any>;
   search?: string;
-  category?: string;
+  position?: string;
   page?: number;
   limit?: number;
   format?: string;
 }) => {
-  const { query, search, category, page, limit, format } = options || {};
+  const { query, search, position, page, limit, format } = options || {};
   const _query = {
     ...(query || {}),
   };
   if (search) {
     _query.or = [
       {
-        title: {
+        fullName: {
           match: search,
         },
       },
       {
-        body: {
+        profile: {
           match: search,
         },
       },
     ];
   }
-  if (category) {
-    _query.categories = category;
-  }
-  if (format === "text") {
-    _query.body = { fmt: "text" };
+  if (position) {
+    _query.position = position;
   }
   const _page = page || 1;
   const _limit = limit || Number(process.env.NEXT_PUBLIC_PAGE_LIMIT) || 10;
   const _skip = (_page - 1) * _limit;
 
-  const { items, total } = await client.getContents<Content & Article>({
+  const { items, total } = await client.getContents<Content & Member>({
     appUid: process.env.NEXT_PUBLIC_NEWT_APP_UID,
-    modelUid: process.env.NEXT_PUBLIC_NEWT_ARTICLE_MODEL_UID,
+    modelUid: process.env.NEXT_PUBLIC_NEWT_MEMBER_MODEL_UID,
     query: {
       depth: 2,
       limit: _limit,
@@ -73,13 +70,13 @@ export const fetchArticles = async (options?: {
     },
   });
   return {
-    articles: items,
+    members: items,
     total,
   };
 };
 
-export const getPages = async (options?: { category?: string }) => {
-  const { total } = await fetchArticles(options);
+export const getPages = async (options?: { position?: string }) => {
+  const { total } = await fetchMembers(options);
   const pages = Array(
     Math.ceil(total / Number(process.env.NEXT_PUBLIC_PAGE_LIMIT) || 10)
   )
@@ -90,17 +87,16 @@ export const getPages = async (options?: { category?: string }) => {
   return pages;
 };
 
-export const fetchCurrentArticle = async (options: { slug: string }) => {
+export const fetchCurrentMember = async (options: { slug: string }) => {
   const { slug } = options;
   if (!slug) return null;
   const { items } = await client.getContents({
     appUid: process.env.NEXT_PUBLIC_NEWT_APP_UID,
-    modelUid: process.env.NEXT_PUBLIC_NEWT_ARTICLE_MODEL_UID,
+    modelUid: process.env.NEXT_PUBLIC_NEWT_MEMBER_MODEL_UID,
     query: {
       depth: 2,
       limit: 1,
       slug,
-      body: { fmt: "text" },
     },
   });
   return items[0] || null;

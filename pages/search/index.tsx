@@ -5,16 +5,16 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useMemo, useState } from "react";
 import { Layout } from "../../components/Layout";
-import { fetchApp, fetchArticles } from "../../lib/api";
-import { renderToPlainText } from "../../lib/markdown";
-import { Article } from "../../types/article";
+import { fetchApp, fetchMembers } from "../../lib/api";
+import { Member } from "../../types/member";
+import { htmlToText } from "html-to-text";
 
 export default function Search({ app }: { app: AppMeta }) {
   const router = useRouter();
   const { q, page } = router.query;
 
   const [isLoading, setIsLoading] = useState(false);
-  const [articles, setArticles] = useState<(Content & Article)[]>([]);
+  const [members, setMembers] = useState<(Content & Member)[]>([]);
   const [total, setTotal] = useState<number>(0);
 
   const _page = useMemo(() => {
@@ -26,13 +26,13 @@ export default function Search({ app }: { app: AppMeta }) {
       if (typeof q !== "string" || q === "") {
         return;
       }
-      const { articles, total } = await fetchArticles({
+      const { members, total } = await fetchMembers({
         search: q,
         page: _page,
         limit: 100,
         format: "text",
       });
-      setArticles(articles);
+      setMembers(members);
       setTotal(total);
       setIsLoading(true);
     })();
@@ -44,19 +44,19 @@ export default function Search({ app }: { app: AppMeta }) {
         <title>{app?.name || app?.uid || ""}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {articles.length > 0 ? (
+      {members.length > 0 ? (
         <div className={styles.Search}>
           <p className={styles.Search_Text}>
             Found {total} results for your search
           </p>
           <div className={styles.Search_Results}>
-            {articles.map((article) => (
-              <article key={article._id} className={styles.Article}>
-                <Link href={`/article/${article.slug}`}>
+            {members.map((member) => (
+              <article key={member._id} className={styles.Article}>
+                <Link href={`/member/${member.slug}`}>
                   <a href="#" className={styles.Article_Link}>
-                    <h1 className={styles.Article_Title}>{article.title}</h1>
+                    <h1 className={styles.Article_Title}>{member.fullName}</h1>
                     <p className={styles.Article_Description}>
-                      {renderToPlainText(article.body)}
+                      {htmlToText(member.profile)}
                     </p>
                   </a>
                 </Link>

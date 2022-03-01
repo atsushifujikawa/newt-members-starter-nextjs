@@ -6,7 +6,7 @@
   width: 100%;
 }
 .Article_Link {
-  display: flex;
+  display: block;
   padding: 0;
   line-height: 1.5;
   color: #333;
@@ -14,8 +14,6 @@
   border-radius: 3px;
   transition: background 0.2s;
   background: #fff;
-  flex-direction: column;
-  height: 100%;
   overflow: hidden;
 }
 .Article_Link:hover {
@@ -67,62 +65,22 @@
 }
 .Article_Inner {
   padding: 16px;
-  flex: 1 auto;
-  display: flex;
-  flex-direction: column;
+}
+.Article_Category {
+  font-size: 1.2rem;
+  margin: 0;
+  padding: 0;
+  color: #888;
 }
 .Article_Title {
   font-size: 1.4rem;
-  margin: 0 0 12px 0;
+  margin: 0;
   padding: 0;
 }
-.Article_Content {
-  margin: auto 0 0 0;
-  display: flex;
-  align-items: center;
-}
-.Article_Data {
-  display: flex;
-  align-items: center;
-}
-.Article_Avatar {
-  width: 32px;
-  height: 32px;
-  border-radius: 16px;
-  overflow: hidden;
-  margin: 0 12px 0 0;
-  flex-shrink: 0;
-  background: rgba(0, 0, 0, 0.05);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.Article_Avatar img {
-  width: 32px;
-  height: 32px;
-  object-fit: cover;
-  font-family: "object-fit: cover"; /* IE11 */
-}
-.Article_AuthorName {
-  font-size: 1.2rem;
-  font-weight: bold;
-}
-.Article_Date {
-  font-size: 1.2rem;
-  color: #888;
-}
-.Article_Fav {
-  margin: 0 8px 0 auto;
-  display: flex;
-  align-items: center;
-}
-.Article_Fav > em {
-  font-size: 1.2rem;
-  font-style: normal;
-  margin: 0 0 0 4px;
-  color: #888;
-}
 @media (min-width: 600px) {
+  .Articles {
+    padding: 60px;
+  }
   .Article {
     margin: 0 12px 24px 0;
     width: calc(50% - 14px);
@@ -132,6 +90,9 @@
   }
 }
 @media (min-width: 960px) {
+  .Articles {
+    max-width: 1024px;
+  }
   .Article {
     margin: 0 24px 24px 0;
     width: calc(33.333% - 18px);

@@ -1,4 +1,4 @@
-export interface Category {
+export interface Position {
   name: string;
   slug: string;
 }

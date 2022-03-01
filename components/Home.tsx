@@ -4,26 +4,28 @@ import styles from "../styles/Home.module.css";
 import { Cover } from "../components/Cover";
 import { Layout } from "../components/Layout";
 import { Dropdown } from "../components/Dropdown";
-import { Category } from "../types/category";
 import { ArticleCard } from "../components/ArticleCard";
-import { Article } from "../types/article";
 import { Pagination } from "../components/Pagination";
+import { Position } from "../types/position";
+import { Member } from "../types/member";
+
+export interface HomeProps {
+  app: AppMeta;
+  positions: (Content & Position)[];
+  members: (Content & Member)[];
+  total: number;
+  page?: number;
+  positionSlug?: string;
+}
 
 export function Home({
   app,
-  categories,
-  articles,
+  positions,
+  members,
   total,
   page = 1,
-  categorySlug = "",
-}: {
-  app: AppMeta;
-  categories: (Content & Category)[];
-  articles: (Content & Article)[];
-  total: number;
-  page?: number;
-  categorySlug?: string;
-}) {
+  positionSlug = "",
+}: HomeProps) {
   return (
     <Layout app={app}>
       <Head>
@@ -32,16 +34,16 @@ export function Home({
       </Head>
       {app.cover?.value && <Cover app={app} />}
       <div className={styles.Articles}>
-        <Dropdown categories={categories} selected={categorySlug} />
+        <Dropdown positions={positions} selected={positionSlug} />
         <div className={styles.Inner}>
-          {articles.map((article) => (
-            <ArticleCard article={article} key={article._id} />
+          {members.map((member) => (
+            <ArticleCard member={member} key={member._id} />
           ))}
         </div>
         <Pagination
           total={total}
           current={page}
-          basePath={categorySlug ? `/category/${categorySlug}` : ``}
+          basePath={positionSlug ? `/position/${positionSlug}` : ``}
         />
       </div>
     </Layout>
