@@ -46,7 +46,7 @@ export const fetchMembers = async (options?: {
         },
       },
       {
-        profile: {
+        biography: {
           match: search,
         },
       },

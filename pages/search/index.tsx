@@ -56,7 +56,7 @@ export default function Search({ app }: { app: AppMeta }) {
                   <a href="#" className={styles.Article_Link}>
                     <h1 className={styles.Article_Title}>{member.fullName}</h1>
                     <p className={styles.Article_Description}>
-                      {htmlToText(member.profile)}
+                      {htmlToText(member.biography)}
                     </p>
                   </a>
                 </Link>

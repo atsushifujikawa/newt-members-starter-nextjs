@@ -14,7 +14,17 @@ export default function ArticlePage({
   app: AppMeta;
   currentMember: (Content & Member) | null;
 }) {
+  const meta = useMemo(() => {
+    if (currentMember?.meta) {
+      return currentMember.meta;
+    }
+    return null;
+  }, [currentMember?.meta]);
+
   const title = useMemo(() => {
+    if (meta?.title) {
+      return meta.title;
+    }
     if (currentMember?.fullName) {
       return currentMember.fullName;
     }
@@ -22,28 +32,42 @@ export default function ArticlePage({
   }, [app, currentMember?.fullName]);
 
   const description = useMemo(() => {
-    if (currentMember?.profile) {
-      return htmlToText(currentMember.profile).slice(0, 200);
+    if (meta?.description) {
+      return meta.description;
+    }
+    if (currentMember?.biography) {
+      return htmlToText(currentMember.biography).slice(0, 200);
     }
     return "";
-  }, [app, currentMember?.profile]);
+  }, [meta, currentMember?.biography]);
 
-  const profile = useMemo(() => {
-    if (currentMember?.profile) {
+  const ogImage = useMemo(() => {
+    if (meta?.ogImage) {
+      return meta.ogImage.src;
+    }
+    if (currentMember?.profileImage) {
+      return currentMember.profileImage.src;
+    }
+    return "";
+  }, [meta?.ogImage, currentMember?.profileImage]);
+
+  const biography = useMemo(() => {
+    if (currentMember?.biography) {
       return {
-        __html: currentMember.profile,
+        __html: currentMember.biography,
       };
     }
     return {
       __html: "",
     };
-  }, [currentMember?.profile]);
+  }, [currentMember?.biography]);
 
   return (
     <Layout app={app} containerClassName={styles.Container}>
       <Head>
         <title>{title}</title>
         <meta name="description" content={description} />
+        <meta name="og:image" content={ogImage} />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <article className={styles.Article}>
@@ -80,7 +104,7 @@ export default function ArticlePage({
         </h1>
         <div
           className={styles.Article_Body}
-          dangerouslySetInnerHTML={profile}
+          dangerouslySetInnerHTML={biography}
         ></div>
       </article>
     </Layout>

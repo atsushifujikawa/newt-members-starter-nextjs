@@ -98,7 +98,7 @@ $ yarn start
 | fullName | タイトル | テキスト | 必須フィールド, このフィールドをタイトルに使う |
 | slug | スラッグ | テキスト | 必須フィールド |
 | profileImage | カバー画像 | 画像 |  |
-| profile | プロフィール | Markdown or リッチテキスト |  |
+| biography | 自己紹介 | Markdown or リッチテキスト |  |
 | position | ポジション | 参照（Positionモデル） |  |
 
 ### Position（`uid: position`）モデル

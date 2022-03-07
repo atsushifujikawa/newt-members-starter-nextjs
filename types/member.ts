@@ -4,7 +4,12 @@ import { Position } from "./position";
 export interface Member {
   fullName: string;
   slug: string;
+  meta: {
+    title: string;
+    description: string;
+    ogImage: { src: string } | null;
+  };
   profileImage: { src: string } | null;
-  profile: string;
+  biography: string;
   position: (Content & Position) | null;
 }
