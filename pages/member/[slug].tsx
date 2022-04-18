@@ -29,7 +29,7 @@ export default function ArticlePage({
       return currentMember.fullName;
     }
     return app.name || app.uid || "";
-  }, [app, currentMember?.fullName]);
+  }, [meta?.title, app, currentMember?.fullName]);
 
   const description = useMemo(() => {
     if (meta?.description) {
